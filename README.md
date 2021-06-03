@@ -4,6 +4,8 @@ LuaUnitCore is a unit-testing framework for the stripped down and modified Lua o
 It is fork of
 https://github.com/bluebird75/luaunit
 
+It is NOT a "game", but a software development tool.
+
 Currently, the tool is published as Community project, so that you can load it as "CORE Project" into your CORE IDE to modify and run it. In the CORE IDE on Windows, select "Create / New Project / Community Projects" and search for 
 
 "hemmerling_luaunit"
