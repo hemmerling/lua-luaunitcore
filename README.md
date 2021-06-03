@@ -1,12 +1,12 @@
 # lua-luaunitcore
-LuaUnitCore is a unit-testing framework for the stripped down and modified Lua on the online game development platform "CORE".
+LuaUnitCore is a unit-testing framework for the stripped down and modified Lua on the online game development platform "CORE". To use it, you must install the CORE IDE application on your Windows10 PC.
 
 It is fork of
 https://github.com/bluebird75/luaunit
 
 It is NOT a "game", but a software development tool.
 
-Currently, the tool is published as Community project, so that you can load it as "CORE Project" into your CORE IDE to modify and run it. In the CORE IDE on Windows, select "Create / New Project / Community Projects" and search for 
+The tool is published "Open for Editing" CORE application, i.e. as CORE community project. So that you can load it as "CORE Project" into your CORE IDE to modify and run it. In the CORE IDE, select "Create / New Project / Community Projects" and search for 
 
 "hemmerling_luaunit"
 
