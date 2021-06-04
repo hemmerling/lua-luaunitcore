@@ -128,7 +128,7 @@ Objects {
     }
     Overrides {
       Name: "cs:arg"
-      String: ""
+      String: "--verbose"
     }
   }
   Collidable_v2 {
