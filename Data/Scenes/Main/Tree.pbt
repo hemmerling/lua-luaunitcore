@@ -50,6 +50,7 @@ Objects {
   }
   ParentId: 4781671109827199097
   ChildIds: 5128994305722800905
+  WantsNetworking: true
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
@@ -80,7 +81,7 @@ Objects {
     }
   }
   ParentId: 5843883437351120429
-  ChildIds: 7313687214874308614
+  ChildIds: 2234655047156895544
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
@@ -104,7 +105,7 @@ Objects {
   }
 }
 Objects {
-  Id: 7313687214874308614
+  Id: 2234655047156895544
   Name: "try"
   Transform {
     Location {
@@ -124,6 +125,10 @@ Objects {
       AssetReference {
         Id: 5314056352116835208
       }
+    }
+    Overrides {
+      Name: "cs:arg"
+      String: ""
     }
   }
   Collidable_v2 {

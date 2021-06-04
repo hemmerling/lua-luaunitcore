@@ -76,9 +76,11 @@ M.DISABLE_DEEP_ANALYSIS = false
 -- ** Start of modification for Lua@CORE **
 local cmdline_argv = nil
 if (CoreObject) then
-    -- TODO for Lua@CORE: Transfer of parameters from the unit test file, which calls this file.
-    -- arg = { "-v", "testAddPositive" }
-    cmdline_argv = arg
+    -- With Lua@CORE, at the moment of processing, You can´t expect that other files are already processed.
+    -- I.e. you can´t pass "arg" defined in another Lua script file to here
+    -- Especially, you can´t define a "CustomProperty" for this script file, 
+    -- as it is used to be NOT in the hieararchy tree
+    cmdline_argv = "-v"
 else
     cmdline_argv = rawget(_G, "arg")
 end
@@ -3389,11 +3391,8 @@ end
                 if (CoreObject) then
                     -- _ENV[instanceName] => "function: 0000021CC1CB9520"
                     -- _ENV[instanceName] => "table: 0000021C925E5540"
-                    -- instance = _ENV[instanceName]
                     instance = _G[instanceName]
                  else
-                    -- _G[instanceName] => "function: 0000021CC1CB9520"
-                    -- _G[instanceName] => "table: 0000021C925E5540"
                     instance = _G[instanceName]
                 end
                 -- ** End of modification for Lua@CORE **
@@ -3421,11 +3420,8 @@ end
                 if (CoreObject) then
                     -- _ENV[instanceName] => "function: 0000021CC1CB9520"
                     -- _ENV[instanceName] => "table: 0000021C925E5540"
-                    --instance = _ENV[instanceName]
                     instance = _G[instanceName]
                 else
-                    -- _G[instanceName] => "function: 0000021CC1CB9520"
-                    -- _G[instanceName] => "table: 0000021C925E5540"
                     instance = _G[instanceName]
                 end
                 -- ** End of modification for Lua@CORE **
