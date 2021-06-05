@@ -41,7 +41,6 @@ end
 
 -- ** Start of modification for Lua@CORE **
 if (CoreObject) then
-     arg = { "-v", "testme" }
     -- Copy _ENV table to the _G client table, as _G = _ENV does not work!
     -- With Lua@CORE, _ENV contains a list of all global symbols ( functions, tables.. )
     -- With Lua@Core, there is a _G client and a _G server table for each player, both are "empty". 

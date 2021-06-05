@@ -1,6 +1,9 @@
+-- ** Start of extra comment for Lua@CORE **
 -- **
--- ** This file does not work with CORE **
+-- ** This file does not work with CORE,
+-- ** as there is no external operating system available
 -- **
+-- ** End of extra comment for Lua@CORE **
 
 -- ** Start of modification for Lua@CORE **
 local lu = nil

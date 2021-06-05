@@ -4415,5 +4415,17 @@ TestLuaUnitResults = { __class__ = 'TestLuaUnitResults' }
         lu.assertEquals(#m.calls[1], 2 )
     end
 
+-- ** Start of modification for Lua@CORE **
+if (CoreObject) then
+    -- Copy _ENV table to the _G client table, as _G = _ENV does not work!
+    -- With Lua@CORE, _ENV contains a list of all global symbols ( functions, tables.. )
+    -- With Lua@Core, there is a _G client and a _G server table for each player, both are "empty". 
+    -- _G = _ENV  -- Does not work!
+    for name, address in pairs(_ENV) do 
+        --print(name, address)
+        _G[name] = address
+    end   
+end
+-- ** End of modification for Lua@CORE **
 
 -- To execute me , use: lua run_unit_tests.lua

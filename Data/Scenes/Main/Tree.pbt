@@ -49,6 +49,7 @@ Objects {
     }
   }
   ParentId: 4781671109827199097
+  ChildIds: 15184252782324320733
   ChildIds: 5128994305722800905
   WantsNetworking: true
   Collidable_v2 {
@@ -81,7 +82,7 @@ Objects {
     }
   }
   ParentId: 5843883437351120429
-  ChildIds: 2234655047156895544
+  ChildIds: 1280775883242056804
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
@@ -105,8 +106,8 @@ Objects {
   }
 }
 Objects {
-  Id: 2234655047156895544
-  Name: "try"
+  Id: 1280775883242056804
+  Name: "run_unit_tests"
   Transform {
     Location {
     }
@@ -121,14 +122,16 @@ Objects {
   ParentId: 5128994305722800905
   UnregisteredParameters {
     Overrides {
+      Name: "cs:test_luaunit"
+      AssetReference {
+        Id: 17578185090105237568
+      }
+    }
+    Overrides {
       Name: "cs:luaunit"
       AssetReference {
         Id: 5314056352116835208
       }
-    }
-    Overrides {
-      Name: "cs:arg"
-      String: "--verbose"
     }
   }
   Collidable_v2 {
@@ -145,7 +148,48 @@ Objects {
   }
   Script {
     ScriptAsset {
-      Id: 10860631734404566684
+      Id: 15151315413027476991
+    }
+  }
+}
+Objects {
+  Id: 15184252782324320733
+  Name: "test_luaunit"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 5843883437351120429
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:luaunit"
+      AssetReference {
+        Id: 5314056352116835208
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 17578185090105237568
     }
   }
 }

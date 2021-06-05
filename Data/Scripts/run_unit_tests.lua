@@ -24,7 +24,7 @@ local test_luaunit = nil
 if (CoreObject) then
     local propTest_luaunit = script:GetCustomProperty("test_luaunit")
     test_luaunit = require(propTest_luaunit)
-    -- test_luaunit.TestLuaUnitUtilities.test_FailFmt = nil
+    --test_luaunit.TestLuaUnitUtilities.test_FailFmt = nil
 else
     local no_error, err_msg
     no_error, err_msg = pcall(require, "test.test_luaunit")
@@ -56,10 +56,12 @@ end
 -- ** End of modification for Lua@CORE **
 
 lu.LuaUnit.verbosity = 2
+
+-- The last line executes your script with LuaUnit and exit with the proper error code:
 -- ** Start of modification for Lua@CORE **
 if (CoreObject) then
     lu.LuaUnit.run()
-else 
+else
     os.exit(lu.LuaUnit.run())
 end
 -- ** End of modification for Lua@CORE **
