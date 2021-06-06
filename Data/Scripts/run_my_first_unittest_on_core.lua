@@ -39,6 +39,28 @@ function testFalseResult2()
     lu.assertEquals(add(1,2),1)
 end
 
+TestListCompare = {}
+
+    function TestListCompare:test1()
+        local A = 1
+        local B = 1
+        lu.assertEquals( A, B )
+    end
+
+    function TestListCompare:test2()
+        local A = 1
+        local B = 2
+        lu.assertEquals( A, B )
+    end
+
+    function TestListCompare:test3()
+        local A = { 1, 1 } 
+        local B = { 1, 2 }
+        lu.assertEquals( A, B )
+    end
+   
+-- end TestListCompare
+
 -- ** Start of modification for Lua@CORE **
 if (CoreObject) then
     -- Copy _ENV table to the _G client table, as _G = _ENV does not work!
