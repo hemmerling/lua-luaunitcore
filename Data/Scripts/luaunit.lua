@@ -1951,10 +1951,17 @@ function M.wrapFunctions()
     -- a test function inside the global test suite. Nowadays, the functions
     -- are simply run directly as part of the test discovery process.
     -- so just do nothing !
-    io.stderr:write[[Use of WrapFunctions() is no longer needed.
+     -- ** Start of modification for Lua@CORE **
+    if (CoreObject) then
+        print("[[Use of WrapFunctions() is no longer needed. Just prefix your test function \
+names with 'test' or 'Test' and they will be picked up and run by LuaUnit.]]")
+    else
+        io.stderr:write[[Use of WrapFunctions() is no longer needed.
 Just prefix your test function names with "test" or "Test" and they
 will be picked up and run by LuaUnit.
 ]]
+    end
+    -- ** End of modification for Lua@CORE **
 end
 
 local list_of_funcs = {

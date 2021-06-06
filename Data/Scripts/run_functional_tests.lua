@@ -1,8 +1,6 @@
 -- ** Start of extra comment for Lua@CORE **
--- **
--- ** This file does not work with CORE,
--- ** as there is no external operating system available
--- **
+-- ** The code of this file does not work at all with Lua@CORE, 
+-- ** as Lua@CORE doesn´t support os.execute(), os.remove() )
 -- ** End of extra comment for Lua@CORE **
 
 -- ** Start of modification for Lua@CORE **
@@ -10,7 +8,6 @@ local lu = nil
 if (CoreObject) then
     local propLuaunit = script:GetCustomProperty("luaunit")
     lu = require(propLuaunit)
-    print ("run_functional_tests.lu does not work with CORE, as there is no external operating system available")
 else
     -- #!/usr/bin/env lua
     require('os')
