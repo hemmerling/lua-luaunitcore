@@ -151,6 +151,7 @@ function test3()
 end
 
 -- ** Start of modification for Lua@CORE **
+lu = lu.LuaUnit.new()
 if (CoreObject) then
     -- Copy _ENV table to the _G client table, as _G = _ENV does not work!
     -- With Lua@CORE, _ENV contains a list of all global symbols ( functions, tables.. )
@@ -160,9 +161,8 @@ if (CoreObject) then
         --print(name, address)
         _G[name] = address
     end   
-    lu.LuaUnit.runSuite()
+    lu:runSuite()
 else
-    local lu = LuaUnit.new()
     lu:setOutputType("tap")
     os.exit( lu:runSuite() )
 end

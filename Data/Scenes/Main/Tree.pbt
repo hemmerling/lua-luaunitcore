@@ -81,7 +81,7 @@ Objects {
     }
   }
   ParentId: 5843883437351120429
-  ChildIds: 17487376224989747882
+  ChildIds: 5448269938861002822
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
@@ -105,7 +105,7 @@ Objects {
   }
 }
 Objects {
-  Id: 17487376224989747882
+  Id: 5448269938861002822
   Name: "run_my_first_unittest_on_core"
   Transform {
     Location {
