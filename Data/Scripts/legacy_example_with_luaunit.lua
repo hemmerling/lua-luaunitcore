@@ -164,6 +164,7 @@ if (CoreObject) then
     lu:runSuite()
 else
     lu:setOutputType("tap")
-    os.exit( lu:runSuite() )
+    local result = lu:runSuite()
+    -- os.exit( result )
 end
 -- ** End of modification for Lua@CORE **

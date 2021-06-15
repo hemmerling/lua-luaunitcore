@@ -171,7 +171,6 @@ lu:SetVerbosity( 1 )
 
 
 -- ** Start of modification for Lua@CORE **
-local results = nil
 if (CoreObject) then
     -- Copy _ENV table to the _G client table, as _G = _ENV does not work!
     -- With Lua@CORE, _ENV contains a list of all global symbols ( functions, tables.. )
@@ -182,7 +181,7 @@ if (CoreObject) then
         _G[name] = address
     end   
 end
-results = lu.run()
+local results = lu.run()
 -- ** End of modification for Lua@CORE **
 
 -- Verif
@@ -203,6 +202,6 @@ assert( called.TearDown == true )
 -- ** Start of modification for Lua@CORE **
 if (CoreObject) then
 else
-    os.exit( results )
+    --os.exit( results )
 end
 -- ** End of modification for Lua@CORE **

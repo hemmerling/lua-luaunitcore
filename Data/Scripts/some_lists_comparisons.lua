@@ -163,6 +163,7 @@ if (CoreObject) then
     lu.LuaUnit.run()
 else
     -- The last line executes your script with LuaUnit and exit with the proper error code:
-    os.exit( lu.run() )
+    local result = lu.run()
+    --os.exit(result)
 end
 -- ** End of modification for Lua@CORE **

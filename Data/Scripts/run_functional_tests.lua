@@ -10,7 +10,7 @@ if (CoreObject) then
     lu = require(propLuaunit)
 else
     -- #!/usr/bin/env lua
-    require('os')
+    require("os")
     lu = require("luaunit")
 end
 -- ** End of modification for Lua@CORE **
@@ -1343,14 +1343,20 @@ local function main()
                 updateRefFiles(fileSet)
             end
         end
-        os.exit(0)
+        -- ** Start of modification for Lua@CORE **
+        if (CoreObject) then
+        else
+            --os.exit(0)
+        end
+        -- ** End of modification for Lua@CORE **
     end
 
     -- ** Start of modification for Lua@CORE **
     if (CoreObject) then
         lu.LuaUnit.run()
     else
-        os.exit(lu.LuaUnit.run())
+        local result = lu.LuaUnit.run()
+        --os.exit(result)
     end
     -- ** End of modification for Lua@CORE **
     -- body

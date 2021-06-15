@@ -81,7 +81,7 @@ Objects {
     }
   }
   ParentId: 5843883437351120429
-  ChildIds: 16378248294300542415
+  ChildIds: 13185869718828255673
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
@@ -105,8 +105,8 @@ Objects {
   }
 }
 Objects {
-  Id: 16378248294300542415
-  Name: "run_my_first_unittest_on_core"
+  Id: 13185869718828255673
+  Name: "run_luatestadapter_tests"
   Transform {
     Location {
     }
@@ -141,7 +141,7 @@ Objects {
   }
   Script {
     ScriptAsset {
-      Id: 10860631734404566684
+      Id: 1880380360424384265
     }
   }
 }

@@ -3169,14 +3169,7 @@ TestLuaUnitExecution = { __class__ = 'TestLuaUnitExecution' }
     end
 
     function TestLuaUnitExecution:canNotExitDuringLuaUnitExecution()
-        -- ** Start of modification for Lua@CORE **
-        if (CoreObject) then
-            -- TODO
-            lu.assertFailure(nil, 0)
-        else
-            lu.assertFailure(os.exit, 0)
-        end
-        -- ** End of modification for Lua@CORE **
+        lu.assertFailure(os.exit, 0)
     end
 
     function TestLuaUnitExecution:test_collectTests()
@@ -4413,8 +4406,6 @@ TestLuaUnitResults = { __class__ = 'TestLuaUnitResults' }
             return t
         end
 
-        print("lu= ") -- zzz
-        print(lu) -- zzz
         local runner = lu.LuaUnit.new()
         runner.outputType = MyMocker
         runner:runSuite( 'MyTestWithErrorsAndFailures' )

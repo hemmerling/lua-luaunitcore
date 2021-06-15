@@ -59,6 +59,10 @@ TestListCompare = {}
         lu.assertEquals( A, B )
     end
    
+    function test04()
+        lu.assertAlmostEquals( 1, 2, 0.1 )
+    end
+
 -- end TestListCompare
 
 -- ** Start of modification for Lua@CORE **
@@ -74,7 +78,8 @@ if (CoreObject) then
     lu.LuaUnit.run()
 else
     -- The last line executes your script with LuaUnit and exit with the proper error code:
-    os.exit(lu.LuaUnit.run())
+    local result = lu.LuaUnit.run()
+    os.exit(result)
 end
 -- ** End of modification for Lua@CORE **
 
