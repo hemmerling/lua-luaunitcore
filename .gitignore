@@ -1,15 +1,22 @@
-# Temporary files used when publishing & to store some preview data like persistent storage
+# CORE - Temporary files used when publishing & to store some preview data like persistent storage
 # No need to synchronize
 **/Temp/
 
-# Local user settings used to store script breakpoints & hierarchy state (locked/hidden objects)
+# CORE - Local user settings used to store script breakpoints & hierarchy state (locked/hidden objects)
 # No need to synchronize
 **/UserSettings/
 
-# Screenshots used when publishing & for project thumbnails in the Create tab
+# CORE - Screenshots used when publishing & for project thumbnails in the Create tab
 # Comment out if you want to synchronize screenshots
 # **/Screenshots/
 
-# Directory created when migrating from an old storage format
+# CORE - Directory created when migrating from an old storage format
 # No need to synchronize
 **/.core_backup/
+
+# LuaRocks
+# No need to synchronize
+**/.luarocks/
+**/lua_modules/
+**/lua.bat
+**/luarocks.bat
