@@ -1290,7 +1290,7 @@ local function updateRefFiles(filesToGenerate)
         -- exitcode != 0 is not an error for us ...
         if ret == false then
             error('Error while generating '..prettystr(v) )
-            os.exit(1)
+            os.exit(1, true)
         end
         ]]
         -- neutralize all testcase time values in ref xml output
@@ -1346,7 +1346,7 @@ local function main()
         -- ** Start of modification for Lua@CORE **
         if (CoreObject) then
         else
-            --os.exit(0)
+            os.exit(0, true)
         end
         -- ** End of modification for Lua@CORE **
     end
@@ -1356,7 +1356,7 @@ local function main()
         lu.LuaUnit.run()
     else
         local result = lu.LuaUnit.run()
-        --os.exit(result)
+        os.exit(result, true)
     end
     -- ** End of modification for Lua@CORE **
     -- body

@@ -24,7 +24,7 @@ local test_luaunit = nil
 if (CoreObject) then
     local propTest_luaunit = script:GetCustomProperty("test_luaunit")
     test_luaunit = require(propTest_luaunit)
-    test_luaunit.TestLuaUnitUtilities.test_FailFmt = nil
+    --test_luaunit.TestLuaUnitUtilities.test_FailFmt = nil
 else
     local no_error, err_msg
     no_error, err_msg = pcall(require, "test.test_luaunit")
@@ -63,6 +63,6 @@ if (CoreObject) then
     lu.LuaUnit.run()
 else
     local result = lu.LuaUnit.run()
-    --os.exit(result)
+    os.exit(result, true)
 end
 -- ** End of modification for Lua@CORE **

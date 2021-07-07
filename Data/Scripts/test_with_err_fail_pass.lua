@@ -89,6 +89,6 @@ if (CoreObject) then
 else
     runner:setOutputType("text")
     local result = runner:runSuite()    
-    os.exit(result)    
+    os.exit(result, true)    
 end
 -- ** End of modification for Lua@CORE **

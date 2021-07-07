@@ -4413,8 +4413,6 @@ TestLuaUnitResults = { __class__ = 'TestLuaUnitResults' }
             return t
         end
 
-        print("lu= ") -- zzz
-        print(lu) -- zzz
         local runner = lu.LuaUnit.new()
         runner.outputType = MyMocker
         runner:runSuite( 'MyTestWithErrorsAndFailures' )

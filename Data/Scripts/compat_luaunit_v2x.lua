@@ -202,6 +202,6 @@ assert( called.TearDown == true )
 -- ** Start of modification for Lua@CORE **
 if (CoreObject) then
 else
-    --os.exit( results )
+    os.exit(results, true)
 end
 -- ** End of modification for Lua@CORE **

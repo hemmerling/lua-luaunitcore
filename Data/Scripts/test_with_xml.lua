@@ -41,6 +41,6 @@ if (CoreObject) then
     lu.LuaUnit.run()  
  else
     local result = lu.LuaUnit.run()    
-    --os.exit(result)    
+    os.exit(result, true)    
 end
 -- ** End of modification for Lua@CORE **

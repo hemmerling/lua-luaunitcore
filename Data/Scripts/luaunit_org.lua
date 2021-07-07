@@ -2497,10 +2497,12 @@ TextOutput.__class__ = 'TextOutput'
     end
 
     function TextOutput:displayOneFailedTest( index, fail )
+        print ( "Fail1") -- hemmerling
         print(index..") "..fail.testName )
         print( fail.msg )
         -- ** Start of modification for Lua@CORE **
         if (CoreObject) then
+            print ("Fail2") -- hemmerling
         else
             print( fail.stackTrace )
         end
@@ -3116,8 +3118,8 @@ end
         end
         
         -- ** Start of additional comment for Lua@CORE **
-        -- ok => true / false
-        -- err => nil / "error in error handling"
+        -- ok => "true" or "false"
+        -- err => "error in error handling", nil
         -- NodeStatus.SUCCESS = "SUCCESS"
         -- ** End of additional comment for Lua@CORE **
         if ok then
@@ -3131,7 +3133,7 @@ end
         -- ** Start of modification for Lua@CORE **
         if (CoreObject) then
             err = {msg = err} -- Manual conversion from String to Table, necessary for Lua@CORE
-            err.status = NodeStatus.ERROR
+            err.msg, err.status = M.adjust_err_msg_with_iter( err.msg, iter_msg )
         else
             err.msg, err.status = M.adjust_err_msg_with_iter( err.msg, iter_msg )
         end
@@ -3193,7 +3195,7 @@ end
                 break
             end
             self.currentCount = iter_n
-
+           
             -- run setUp first (if any)
             if classInstance then
                 local func = self.asFunction( classInstance.setUp ) or
@@ -3201,10 +3203,11 @@ end
                              self.asFunction( classInstance.setup ) or
                              self.asFunction( classInstance.SetUp )
                 if func then
+                    print("setup:", className, " ", classInstance.name) -- hemmerling
                     self:updateStatus(self:protectedCall(classInstance, func, className..'.setUp'))
                 end
             end
-
+ 
             -- run testMethod()
             if node:isSuccess() then
                 self:updateStatus(self:protectedCall(classInstance, methodInstance, prettyFuncName))
@@ -3532,7 +3535,7 @@ end
         if options.output then
             if options.output:lower() == 'junit' and options.fname == nil then
                 print('With junit output, a filename must be supplied with -n or --name')
-                os.exit(-1)
+                os.exit(-1, true)
             end
             pcall_or_abort(self.setOutputType, self, options.output, options.fname)
         end
