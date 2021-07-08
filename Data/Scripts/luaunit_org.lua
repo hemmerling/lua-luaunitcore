@@ -393,20 +393,15 @@ M.private.xmlCDataEscape = xmlCDataEscape
 local function lstrip( s )
     --[[Return s with all leading white spaces and tabs removed]]
      -- ** Start of modification for Lua@CORE **
-    if (CoreObject) then
-        return s
-    else
-        local idx = 0
-        while idx < s:len() do
-            idx = idx + 1
-            local c = s:sub(idx,idx)
-            if c ~= ' ' and c ~= '\t' then
-                break
-            end
+    local idx = 0
+    while idx < s:len() do
+        idx = idx + 1
+        local c = s:sub(idx,idx)
+        if c ~= ' ' and c ~= '\t' then
+            break
         end
-        return s:sub(idx)
     end
-    -- ** End of modification for Lua@CORE **
+    return s:sub(idx)
 end
 M.private.lstrip = lstrip
 
@@ -415,25 +410,18 @@ local function extractFileLineInfo( s )
 
     Return the "file.lua:linenb" information
     ]]
-      -- ** Start of modification for Lua@CORE **
-    if (CoreObject) then
+    local s2 = lstrip(s)
+    local firstColon = s2:find(':', 1, true)
+    if firstColon == nil then
+        -- string is not in the format file:line:
         return s
-    else
-        local s2 = lstrip(s)
-        local firstColon = s2:find(':', 1, true)
-        if firstColon == nil then
-            -- string is not in the format file:line:
-            return s
-        end
-        local secondColon = s2:find(':', firstColon+1, true)
-        if secondColon == nil then
-            -- string is not in the format file:line:
-            return s
-        end
-        return s2:sub(1, secondColon-1) 
     end
-    -- ** End of modification for Lua@CORE **
-
+    local secondColon = s2:find(':', firstColon+1, true)
+    if secondColon == nil then
+        -- string is not in the format file:line:
+        return s
+    end
+    return s2:sub(1, secondColon-1) 
 end
 M.private.extractFileLineInfo = extractFileLineInfo
 
@@ -522,31 +510,23 @@ local function stripLuaunitTrace2( stackTrace, errMsg )
     -- print('emfi="'..errMsgFileLine..'"')
 
     -- remove lines that are still part of luaunit
-    -- ** Start of modification for Lua@CORE **
-    if (CoreObject) then
-        -- TODO for Lua@CORE: Remove lines that are still part of luaunit
-        t = {}
-    else
-        while t[idx] and extractFileLineInfo(t[idx]) ~= errMsgFileLine do
-            -- print('Removing : '..t[idx] )
-            table.remove(t, idx)
-        end
-   
-        -- keep lines until we hit luaunit again
-        while t[idx] and (not isLuaunitInternalLine(t[idx])) do
-            -- print('Keeping : '..t[idx] )
-            idx = idx + 1
-        end
-
-        -- remove remaining luaunit lines
-        while t[idx] do
-            -- print('Removing2 : '..t[idx] )
-            table.remove(t, idx)
-        end
-
+    while t[idx] and extractFileLineInfo(t[idx]) ~= errMsgFileLine do
+        -- print('Removing : '..t[idx] )
+        table.remove(t, idx)
     end
-    -- ** End of modification for Lua@CORE **
+   
+    -- keep lines until we hit luaunit again
+    while t[idx] and (not isLuaunitInternalLine(t[idx])) do
+        -- print('Keeping : '..t[idx] )
+        idx = idx + 1
+    end
 
+    -- remove remaining luaunit lines
+    while t[idx] do
+        -- print('Removing2 : '..t[idx] )
+        table.remove(t, idx)
+    end
+    
     -- print( prettystr(t) )
     return table.concat( t, '\n')
 
@@ -638,7 +618,7 @@ function M.adjust_err_msg_with_iter( err_msg, iter_msg )
     if type( err_msg ) ~= 'string' then
         err_msg = prettystr( err_msg )
     end
-
+    
     if (err_msg:find( M.SUCCESS_PREFIX ) == 1) or err_msg:match( '('..RE_FILE_LINE..')' .. M.SUCCESS_PREFIX .. ".*" ) then
         -- test finished early with success()
         return nil, M.NodeStatus.SUCCESS
@@ -657,8 +637,6 @@ function M.adjust_err_msg_with_iter( err_msg, iter_msg )
         -- print("failure detected")
         return err_msg, M.NodeStatus.FAIL
     end
-
-
 
     -- print("error detected")
     -- regular error, not a failure
@@ -2497,12 +2475,11 @@ TextOutput.__class__ = 'TextOutput'
     end
 
     function TextOutput:displayOneFailedTest( index, fail )
-        print ( "Fail1") -- hemmerling
         print(index..") "..fail.testName )
         print( fail.msg )
         -- ** Start of modification for Lua@CORE **
         if (CoreObject) then
-            print ("Fail2") -- hemmerling
+            --print( fail.stackTrace )
         else
             print( fail.stackTrace )
         end
@@ -2998,13 +2975,7 @@ end
             node:skip( err.msg )
             table.insert( self.result.skippedTests, node )
         else
-            -- ** Start of modification for Lua@CORE **
-            if (CoreObject) then
-                print('No such status')
-            else
-                error('No such status: ' .. prettystr(err.status))
-            end
-            -- ** End of modification for Lua@CORE **
+            error('No such status: ' .. prettystr(err.status))
         end
 
         self.output:updateStatus( node )
@@ -3102,10 +3073,16 @@ end
 
         local function err_handler(e)
             -- transform error into a table, adding the traceback information
-            return {
+            local stackTrace = nil
+            if (CoreObject) then
+                stackTrace = "No debug.traceback() with Lua@CORE"
+            else
+                stackTrace = string.sub(debug.traceback("", 1), 2)
+            end
+                return {
                 status = NodeStatus.ERROR,
                 msg = e,
-                trace = string.sub(debug.traceback("", 1), 2)
+                trace = stackTrace
             }
         end
 
@@ -3118,8 +3095,8 @@ end
         end
         
         -- ** Start of additional comment for Lua@CORE **
-        -- ok => "true" or "false"
-        -- err => "error in error handling", nil
+        -- ok => true / false
+        -- err => nil / "error in error handling"
         -- NodeStatus.SUCCESS = "SUCCESS"
         -- ** End of additional comment for Lua@CORE **
         if ok then
@@ -3130,15 +3107,8 @@ end
         local iter_msg
         iter_msg = self.exeRepeat and 'iteration '..self.currentCount
 
-        -- ** Start of modification for Lua@CORE **
-        if (CoreObject) then
-            err = {msg = err} -- Manual conversion from String to Table, necessary for Lua@CORE
-            err.msg, err.status = M.adjust_err_msg_with_iter( err.msg, iter_msg )
-        else
-            err.msg, err.status = M.adjust_err_msg_with_iter( err.msg, iter_msg )
-        end
-        -- ** End of modification for Lua@CORE **
-
+        err.msg, err.status = M.adjust_err_msg_with_iter( err.msg, iter_msg )
+        
         if err.status == NodeStatus.SUCCESS or err.status == NodeStatus.SKIP then
             err.trace = nil
             return err
@@ -3148,6 +3118,7 @@ end
         if prettyFuncName then -- we do have the real method name
             -- ** Start of modification for Lua@CORE **
             if (CoreObject) then
+                err.trace = "No debug.traceback() for " ..prettyFuncName.. " with Lua@CORE"
             else
                 err.trace = err.trace:gsub("in (%a+) 'methodInstance'", "in %1 '"..prettyFuncName.."'")
                 if STRIP_LUAUNIT_FROM_STACKTRACE then
@@ -3195,7 +3166,7 @@ end
                 break
             end
             self.currentCount = iter_n
-           
+
             -- run setUp first (if any)
             if classInstance then
                 local func = self.asFunction( classInstance.setUp ) or
@@ -3203,11 +3174,10 @@ end
                              self.asFunction( classInstance.setup ) or
                              self.asFunction( classInstance.SetUp )
                 if func then
-                    print("setup:", className, " ", classInstance.name) -- hemmerling
                     self:updateStatus(self:protectedCall(classInstance, func, className..'.setUp'))
                 end
             end
- 
+
             -- run testMethod()
             if node:isSuccess() then
                 self:updateStatus(self:protectedCall(classInstance, methodInstance, prettyFuncName))
@@ -3535,7 +3505,7 @@ end
         if options.output then
             if options.output:lower() == 'junit' and options.fname == nil then
                 print('With junit output, a filename must be supplied with -n or --name')
-                os.exit(-1, true)
+                os.exit(-1)
             end
             pcall_or_abort(self.setOutputType, self, options.output, options.fname)
         end
